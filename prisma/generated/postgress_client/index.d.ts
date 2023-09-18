@@ -866,38 +866,29 @@ export namespace Prisma {
 
   export type AggregateTranscription = {
     _count: TranscriptionCountAggregateOutputType | null
-    _avg: TranscriptionAvgAggregateOutputType | null
-    _sum: TranscriptionSumAggregateOutputType | null
     _min: TranscriptionMinAggregateOutputType | null
     _max: TranscriptionMaxAggregateOutputType | null
   }
 
-  export type TranscriptionAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type TranscriptionSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
   export type TranscriptionMinAggregateOutputType = {
-    id: number | null
+    id: string | null
+    title: string | null
     text: string | null
     videoUrl: string | null
-    userId: number | null
+    userId: string | null
   }
 
   export type TranscriptionMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
+    title: string | null
     text: string | null
     videoUrl: string | null
-    userId: number | null
+    userId: string | null
   }
 
   export type TranscriptionCountAggregateOutputType = {
     id: number
+    title: number
     text: number
     videoUrl: number
     userId: number
@@ -905,18 +896,9 @@ export namespace Prisma {
   }
 
 
-  export type TranscriptionAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type TranscriptionSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
   export type TranscriptionMinAggregateInputType = {
     id?: true
+    title?: true
     text?: true
     videoUrl?: true
     userId?: true
@@ -924,6 +906,7 @@ export namespace Prisma {
 
   export type TranscriptionMaxAggregateInputType = {
     id?: true
+    title?: true
     text?: true
     videoUrl?: true
     userId?: true
@@ -931,6 +914,7 @@ export namespace Prisma {
 
   export type TranscriptionCountAggregateInputType = {
     id?: true
+    title?: true
     text?: true
     videoUrl?: true
     userId?: true
@@ -975,18 +959,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: TranscriptionAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: TranscriptionSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: TranscriptionMinAggregateInputType
@@ -1017,20 +989,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TranscriptionCountAggregateInputType | true
-    _avg?: TranscriptionAvgAggregateInputType
-    _sum?: TranscriptionSumAggregateInputType
     _min?: TranscriptionMinAggregateInputType
     _max?: TranscriptionMaxAggregateInputType
   }
 
   export type TranscriptionGroupByOutputType = {
-    id: number
+    id: string
+    title: string
     text: string
     videoUrl: string
-    userId: number
+    userId: string
     _count: TranscriptionCountAggregateOutputType | null
-    _avg: TranscriptionAvgAggregateOutputType | null
-    _sum: TranscriptionSumAggregateOutputType | null
     _min: TranscriptionMinAggregateOutputType | null
     _max: TranscriptionMaxAggregateOutputType | null
   }
@@ -1051,6 +1020,7 @@ export namespace Prisma {
 
   export type transcriptionSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     text?: boolean
     videoUrl?: boolean
     userId?: boolean
@@ -1058,6 +1028,7 @@ export namespace Prisma {
 
   export type transcriptionSelectScalar = {
     id?: boolean
+    title?: boolean
     text?: boolean
     videoUrl?: boolean
     userId?: boolean
@@ -1068,10 +1039,11 @@ export namespace Prisma {
     name: "transcription"
     objects: {}
     scalars: $Extensions.GetResult<{
-      id: number
+      id: string
+      title: string
       text: string
       videoUrl: string
-      userId: number
+      userId: string
     }, ExtArgs["result"]["transcription"]>
     composites: {}
   }
@@ -1466,10 +1438,11 @@ export namespace Prisma {
    * Fields of the transcription model
    */ 
   interface transcriptionFieldRefs {
-    readonly id: FieldRef<"transcription", 'Int'>
+    readonly id: FieldRef<"transcription", 'String'>
+    readonly title: FieldRef<"transcription", 'String'>
     readonly text: FieldRef<"transcription", 'String'>
     readonly videoUrl: FieldRef<"transcription", 'String'>
-    readonly userId: FieldRef<"transcription", 'Int'>
+    readonly userId: FieldRef<"transcription", 'String'>
   }
     
 
@@ -1773,6 +1746,7 @@ export namespace Prisma {
 
   export const TranscriptionScalarFieldEnum: {
     id: 'id',
+    title: 'title',
     text: 'text',
     videoUrl: 'videoUrl',
     userId: 'userId'
@@ -1803,20 +1777,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -1831,16 +1791,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Int'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -1851,106 +1811,108 @@ export namespace Prisma {
     AND?: transcriptionWhereInput | transcriptionWhereInput[]
     OR?: transcriptionWhereInput[]
     NOT?: transcriptionWhereInput | transcriptionWhereInput[]
-    id?: IntFilter<"transcription"> | number
+    id?: StringFilter<"transcription"> | string
+    title?: StringFilter<"transcription"> | string
     text?: StringFilter<"transcription"> | string
     videoUrl?: StringFilter<"transcription"> | string
-    userId?: IntFilter<"transcription"> | number
+    userId?: StringFilter<"transcription"> | string
   }
 
   export type transcriptionOrderByWithRelationInput = {
     id?: SortOrder
+    title?: SortOrder
     text?: SortOrder
     videoUrl?: SortOrder
     userId?: SortOrder
   }
 
   export type transcriptionWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: transcriptionWhereInput | transcriptionWhereInput[]
     OR?: transcriptionWhereInput[]
     NOT?: transcriptionWhereInput | transcriptionWhereInput[]
+    title?: StringFilter<"transcription"> | string
     text?: StringFilter<"transcription"> | string
     videoUrl?: StringFilter<"transcription"> | string
-    userId?: IntFilter<"transcription"> | number
+    userId?: StringFilter<"transcription"> | string
   }, "id">
 
   export type transcriptionOrderByWithAggregationInput = {
     id?: SortOrder
+    title?: SortOrder
     text?: SortOrder
     videoUrl?: SortOrder
     userId?: SortOrder
     _count?: transcriptionCountOrderByAggregateInput
-    _avg?: transcriptionAvgOrderByAggregateInput
     _max?: transcriptionMaxOrderByAggregateInput
     _min?: transcriptionMinOrderByAggregateInput
-    _sum?: transcriptionSumOrderByAggregateInput
   }
 
   export type transcriptionScalarWhereWithAggregatesInput = {
     AND?: transcriptionScalarWhereWithAggregatesInput | transcriptionScalarWhereWithAggregatesInput[]
     OR?: transcriptionScalarWhereWithAggregatesInput[]
     NOT?: transcriptionScalarWhereWithAggregatesInput | transcriptionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"transcription"> | number
+    id?: StringWithAggregatesFilter<"transcription"> | string
+    title?: StringWithAggregatesFilter<"transcription"> | string
     text?: StringWithAggregatesFilter<"transcription"> | string
     videoUrl?: StringWithAggregatesFilter<"transcription"> | string
-    userId?: IntWithAggregatesFilter<"transcription"> | number
+    userId?: StringWithAggregatesFilter<"transcription"> | string
   }
 
   export type transcriptionCreateInput = {
+    id?: string
+    title: string
     text: string
     videoUrl: string
-    userId: number
+    userId: string
   }
 
   export type transcriptionUncheckedCreateInput = {
-    id?: number
+    id?: string
+    title: string
     text: string
     videoUrl: string
-    userId: number
+    userId: string
   }
 
   export type transcriptionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     videoUrl?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type transcriptionUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     videoUrl?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type transcriptionCreateManyInput = {
-    id?: number
+    id?: string
+    title: string
     text: string
     videoUrl: string
-    userId: number
+    userId: string
   }
 
   export type transcriptionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     videoUrl?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type transcriptionUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     videoUrl?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -1970,18 +1932,15 @@ export namespace Prisma {
 
   export type transcriptionCountOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     text?: SortOrder
     videoUrl?: SortOrder
     userId?: SortOrder
   }
 
-  export type transcriptionAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
   export type transcriptionMaxOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     text?: SortOrder
     videoUrl?: SortOrder
     userId?: SortOrder
@@ -1989,30 +1948,10 @@ export namespace Prisma {
 
   export type transcriptionMinOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     text?: SortOrder
     videoUrl?: SortOrder
     userId?: SortOrder
-  }
-
-  export type transcriptionSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -2037,25 +1976,6 @@ export namespace Prisma {
     set?: string
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -2068,33 +1988,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -2112,6 +2005,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
 

@@ -8,6 +8,8 @@ import {
 import { SpeechConfig } from 'microsoft-cognitiveservices-speech-sdk';
 import { VideoService } from 'src/video/video.service';
 import * as fs from 'fs';
+import { AuthService } from 'src/user/auth/auth.service';
+import { UserService } from 'src/user/user.service';
 
 interface video {
   url: string;
@@ -23,7 +25,11 @@ interface video {
 export class SocketgatewayGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(private readonly videoService: VideoService) {}
+  constructor(
+    private readonly videoService: VideoService,
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   private speechConfig: SpeechConfig;
 
@@ -47,7 +53,11 @@ export class SocketgatewayGateway
   }
 
   @SubscribeMessage('postUrl')
-  async handlePostUrl(client: any, videoUrl: video, token: string): Promise<void> {
+  async handlePostUrl(client: any, videoUrl: video): Promise<void> {
+    const user = await this.authService.validateToken(
+      client.handshake.auth.token,
+    );
+
     let percent = 0;
     console.log('received url: ', videoUrl.url);
     const proccessId = new Date().getTime();
@@ -65,14 +75,17 @@ export class SocketgatewayGateway
 
       percent += 10;
 
-      client.emit('info', { title: videoInfo['title'], id: proccessId, url: videoUrl });
+      client.emit('info', {
+        title: videoInfo['title'],
+        id: proccessId,
+        url: videoUrl,
+      });
 
       client.emit('status', {
         message: "Processing video's audio . . .",
         id: proccessId,
         percent: percent,
       });
-      
 
       const wavPath = await this.videoService.convertToWav(
         videoInfo['url'],
@@ -101,7 +114,6 @@ export class SocketgatewayGateway
         percent: 95,
       });
 
-
       client.emit('transcription', {
         transcript: transcription,
         id: proccessId,
@@ -113,18 +125,28 @@ export class SocketgatewayGateway
         percent: 100,
       });
 
-
       client.disconnect();
 
       // delete the audio file and the transcription file
       fs.unlinkSync(wavPath);
 
+      if (user['id'] !== undefined) {
+        await this.userService.createNewTranscription(
+          videoUrl.url,
+          transcription,
+          user['id'],
+          videoInfo['title'],
+        );
+      }
     } catch (err) {
-      client.emit('error', { message: "Transcription Failed!", id: proccessId });
+      client.emit('error', {
+        message: 'Transcription Failed!',
+        id: proccessId,
+      });
       console.log(err);
       client.disconnect();
-      if (fs.existsSync(`audio_${client.id}.wav`)) fs.unlinkSync(`audio_${client.id}.wav`);
+      if (fs.existsSync(`audio_${client.id}.wav`))
+        fs.unlinkSync(`audio_${client.id}.wav`);
     }
   }
-
 }
