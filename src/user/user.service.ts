@@ -18,6 +18,7 @@ export class UserService {
     this.postgresClient = this.prismaService.getPostgresClient();
   }
 
+  
   async getUserHistory(id: string): Promise<List<transcriptionDto>> {    
 
     const history = await this.postgresClient.transcription.findMany({
