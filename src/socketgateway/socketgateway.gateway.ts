@@ -15,9 +15,9 @@ interface video {
   url: string;
 }
 
-@WebSocketGateway(9090, {
+@WebSocketGateway(parseInt(process.env.WEBSOCKET_PORT), {
   cors: {
-    origin: '*',
+    origin: 'https://transcriber-io.onrender.com',
     credentials: true,
   },
   transports: ['websocket', 'polling'],
