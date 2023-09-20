@@ -15,7 +15,7 @@ interface video {
   url: string;
 }
 
-@WebSocketGateway(parseInt(process.env.WEBSOCKET_PORT), {
+@WebSocketGateway({
   cors: {
     origin: 'https://transcriber-io.onrender.com',
     // origin: 'http://localhost:3000',
